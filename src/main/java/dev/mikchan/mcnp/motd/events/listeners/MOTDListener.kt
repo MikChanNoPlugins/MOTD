@@ -11,9 +11,9 @@ internal class MOTDListener(private val plugin: MOTDPlugin) : Listener {
         if (!plugin.config.enabled) return
         val motd = plugin.motdManager.getRandom() ?: return
 
-        if (motd.firstLine != null || motd.secondLine != "") {
-            val firstLine = motd.firstLine ?: ""
-            val secondLine = motd.secondLine ?: ""
+        if (motd.firstLine != null || motd.secondLine != null) {
+            val firstLine = motd.firstLine?.let { plugin.formatter.format(it) } ?: ""
+            val secondLine = motd.secondLine?.let { plugin.formatter.format(it) } ?: ""
             event.motd = "${firstLine}\n${secondLine}"
         }
 
