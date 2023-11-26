@@ -6,6 +6,9 @@ import dev.mikchan.mcnp.motd.config.creator.IConfigCreator
 import dev.mikchan.mcnp.motd.config.creator.boostedYaml.BoostedYamlConfigCreator
 import dev.mikchan.mcnp.motd.events.creator.EventManagerCreator
 import dev.mikchan.mcnp.motd.events.creator.IEventManagerCreator
+import dev.mikchan.mcnp.motd.formatter.creator.FormatterCreator
+import dev.mikchan.mcnp.motd.formatter.creator.IFormatterCreator
+import dev.mikchan.mcnp.motd.formatter.creator.papi.PapiFormatterCreator
 import dev.mikchan.mcnp.motd.image.creator.IImageManagerCreator
 import dev.mikchan.mcnp.motd.image.creator.ImageManagerCreator
 import dev.mikchan.mcnp.motd.motd.creator.IMOTDManagerCreator
@@ -17,4 +20,5 @@ object Creators {
     var imageManager: IImageManagerCreator = ImageManagerCreator()
     var motdManager: IMOTDManagerCreator = MOTDManagerCreator()
     var eventManager: IEventManagerCreator = EventManagerCreator()
+    var formatter: IFormatterCreator = PapiFormatterCreator(FormatterCreator())
 }

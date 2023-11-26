@@ -39,12 +39,17 @@ repositories {
         name = "aikar-repo"
         url = "https://repo.aikar.co/content/groups/aikar/"
     }
+    maven {
+        name = "placeholderapi"
+        url = "https://repo.extendedclip.com/content/repositories/placeholderapi/"
+    }
 }
 
 dependencies {
     compileOnly "org.spigotmc:spigot-api:1.20.2-R0.1-SNAPSHOT"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.9.21"
+    compileOnly "me.clip:placeholderapi:2.11.5"
 
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.9.21"
     implementation "dev.dejvokep:boosted-yaml-spigot:1.4"
 
     shadow "org.bstats:bstats-bukkit:3.0.1"

@@ -3,6 +3,7 @@ package dev.mikchan.mcnp.motd
 import dev.mikchan.mcnp.motd.commands.manager.ICommandManager
 import dev.mikchan.mcnp.motd.config.config.IConfig
 import dev.mikchan.mcnp.motd.events.manager.IEventManager
+import dev.mikchan.mcnp.motd.formatter.formatter.IFormatter
 import dev.mikchan.mcnp.motd.image.manager.IImageManager
 import dev.mikchan.mcnp.motd.motd.manager.IMOTDManager
 import org.bstats.bukkit.Metrics
@@ -17,6 +18,7 @@ class MOTDPlugin : JavaPlugin() {
     val config: IConfig by lazy { Creators.config.build(this) }
     val imageManager: IImageManager by lazy { Creators.imageManager.build(this) }
     val motdManager: IMOTDManager by lazy { Creators.motdManager.build(this) }
+    val formatter: IFormatter by lazy { Creators.formatter.build(this) }
 
     private val commandManager: ICommandManager by lazy { Creators.commandManager.build(this) }
     private val eventManager: IEventManager by lazy { Creators.eventManager.build(this) }
