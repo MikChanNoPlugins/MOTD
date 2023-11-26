@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'org.jetbrains.kotlin.jvm' version '1.9.21'
 }
 
 group = 'dev.mikchan.mcnp'
@@ -19,21 +20,22 @@ repositories {
 
 dependencies {
     compileOnly "org.spigotmc:spigot-api:1.20.2-R0.1-SNAPSHOT"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.9.21"
 }
 
 def targetJavaVersion = 17
 java {
     def javaVersion = JavaVersion.toVersion(targetJavaVersion)
-    sourceCompatibility = javaVersion
-    targetCompatibility = javaVersion
     if (JavaVersion.current() < javaVersion) {
-        toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
+        toolchain {
+            languageVersion.set(JavaLanguageVersion.of(targetJavaVersion))
+        }
     }
 }
 
 tasks.withType(JavaCompile).configureEach {
     if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible()) {
-        options.release = targetJavaVersion
+        options.release.set(targetJavaVersion)
     }
 }
 
@@ -44,4 +46,8 @@ processResources {
     filesMatching('plugin.yml') {
         expand props
     }
+}
+
+kotlin {
+    jvmToolchain(17)
 }

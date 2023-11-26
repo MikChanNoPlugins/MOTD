@@ -1,17 +1,14 @@
-package dev.mikchan.mcnp.motd;
+package dev.mikchan.mcnp.motd
 
-import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.plugin.java.JavaPlugin
 
-public final class MotdPlugin extends JavaPlugin {
-
-    @Override
-    public void onEnable() {
+@Suppress("unused")
+class MotdPlugin : JavaPlugin() {
+    override fun onEnable() {
         // Plugin startup logic
-
     }
 
-    @Override
-    public void onDisable() {
+    override fun onDisable() {
         // Plugin shutdown logic
     }
 }
