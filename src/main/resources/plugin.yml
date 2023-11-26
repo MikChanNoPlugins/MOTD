@@ -13,3 +13,4 @@ load: STARTUP
 
 libraries:
   - org.jetbrains.kotlin:kotlin-stdlib:1.9.21
+  - dev.dejvokep:boosted-yaml-spigot:1.4
