@@ -8,7 +8,7 @@ import kotlin.io.path.useDirectoryEntries
 internal class ImagePool(private val plugin: MOTDPlugin) : IImageManager {
     private val iconFolder
         get() = run {
-            val res = File(plugin.dataFolder, "images")
+            val res = File(plugin.dataFolder, "icons")
             if (!res.exists()) {
                 res.mkdir()
             }
@@ -26,14 +26,18 @@ internal class ImagePool(private val plugin: MOTDPlugin) : IImageManager {
     }
 
     override fun preload() {
-        cache = iconFolder.useDirectoryEntries("*.png") { entries ->
-            entries.map { path ->
-                path.fileName.toString() to try {
-                    plugin.server.loadServerIcon(path.toFile())
-                } catch (_: Exception) {
-                    null
-                }
-            }.toMap().filter { it.value != null }.mapValues { it as CachedServerIcon }
+        cache = try {
+            iconFolder.useDirectoryEntries("*.png") { entries ->
+                entries.map { path ->
+                    path.fileName.toString() to try {
+                        plugin.server.loadServerIcon(path.toFile())
+                    } catch (_: Exception) {
+                        null
+                    }
+                }.toMap().filter { it.value != null }.mapValues { it as CachedServerIcon }
+            }
+        } catch (_: Exception) {
+            mapOf()
         }
     }
 
