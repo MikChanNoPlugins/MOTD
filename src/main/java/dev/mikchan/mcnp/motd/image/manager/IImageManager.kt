@@ -1,8 +1,8 @@
-package dev.mikchan.mcnp.motd.image.pool
+package dev.mikchan.mcnp.motd.image.manager
 
 import org.bukkit.util.CachedServerIcon
 
-interface IImagePool {
+interface IImageManager {
     fun get(name: String): CachedServerIcon?
     fun getRandom(): CachedServerIcon?
 

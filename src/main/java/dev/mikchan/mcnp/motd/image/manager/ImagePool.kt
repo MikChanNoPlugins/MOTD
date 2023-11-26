@@ -1,11 +1,11 @@
-package dev.mikchan.mcnp.motd.image.pool
+package dev.mikchan.mcnp.motd.image.manager
 
 import dev.mikchan.mcnp.motd.MOTDPlugin
 import org.bukkit.util.CachedServerIcon
 import java.io.File
 import kotlin.io.path.useDirectoryEntries
 
-internal class ImagePool(private val plugin: MOTDPlugin) : IImagePool {
+internal class ImagePool(private val plugin: MOTDPlugin) : IImageManager {
     private val iconFolder
         get() = run {
             val res = File(plugin.dataFolder, "images")
