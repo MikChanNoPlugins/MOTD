@@ -4,8 +4,8 @@ import dev.mikchan.mcnp.motd.commands.creator.ICommandManagerCreator
 import dev.mikchan.mcnp.motd.commands.creator.acf.ACFCommandManagerCreator
 import dev.mikchan.mcnp.motd.config.creator.IConfigCreator
 import dev.mikchan.mcnp.motd.config.creator.boostedYaml.BoostedYamlConfigCreator
-import dev.mikchan.mcnp.motd.imagePool.creator.IImagePoolCreator
-import dev.mikchan.mcnp.motd.imagePool.creator.ImagePoolCreator
+import dev.mikchan.mcnp.motd.image.creator.IImagePoolCreator
+import dev.mikchan.mcnp.motd.image.creator.ImagePoolCreator
 
 object Creators {
     var config: IConfigCreator = BoostedYamlConfigCreator()

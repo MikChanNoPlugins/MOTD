@@ -1,4 +1,4 @@
-package dev.mikchan.mcnp.motd.imagePool.pool
+package dev.mikchan.mcnp.motd.image.pool
 
 import org.bukkit.util.CachedServerIcon
 

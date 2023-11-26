@@ -2,7 +2,7 @@ package dev.mikchan.mcnp.motd
 
 import dev.mikchan.mcnp.motd.commands.manager.ICommandManager
 import dev.mikchan.mcnp.motd.config.config.IConfig
-import dev.mikchan.mcnp.motd.imagePool.pool.IImagePool
+import dev.mikchan.mcnp.motd.image.pool.IImagePool
 import org.bstats.bukkit.Metrics
 import org.bukkit.plugin.java.JavaPlugin
 
