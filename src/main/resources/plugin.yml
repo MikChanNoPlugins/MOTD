@@ -13,4 +13,3 @@ load: STARTUP
 
 libraries:
   - org.jetbrains.kotlin:kotlin-stdlib:1.9.21
-
