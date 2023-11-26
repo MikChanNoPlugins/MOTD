@@ -4,29 +4,28 @@ import dev.mikchan.mcnp.motd.MOTDPlugin
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.server.ServerListPingEvent
+import org.bukkit.util.CachedServerIcon
 
 internal class MOTDListener(private val plugin: MOTDPlugin) : Listener {
     @EventHandler(ignoreCancelled = true)
     fun onServerListPingEvent(event: ServerListPingEvent) {
         if (!plugin.config.enabled) return
-        val motd = plugin.motdManager.getRandom() ?: return
+        var icon: CachedServerIcon? = null
 
-        if (motd.firstLine != null || motd.secondLine != null) {
-            val firstLine = motd.firstLine?.let { plugin.formatter.format(it) } ?: ""
-            val secondLine = motd.secondLine?.let { plugin.formatter.format(it) } ?: ""
-            event.motd = "${firstLine}\n${secondLine}"
-        }
-
-        val image = motd.image?.let {
-            if (plugin.config.randomImages) {
-                plugin.imageManager.getRandom()
-            } else {
-                null
+        plugin.motdManager.getRandom()?.apply {
+            if (firstLine != null || secondLine != null) {
+                val firstLine = firstLine?.let { plugin.formatter.format(it) } ?: ""
+                val secondLine = secondLine?.let { plugin.formatter.format(it) } ?: ""
+                event.motd = "${firstLine}\n${secondLine}"
             }
+
+            icon = image
         }
 
-        if (image != null) {
-            event.setServerIcon(image)
-        }
+        icon ?: if (plugin.config.randomImages) {
+            plugin.imageManager.getRandom()
+        } else {
+            null
+        }?.apply { event.setServerIcon(this) }
     }
 }
