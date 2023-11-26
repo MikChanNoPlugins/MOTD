@@ -1,10 +1,23 @@
 plugins {
     id 'java'
     id 'org.jetbrains.kotlin.jvm' version '1.9.21'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
+}
+
+if (hasProperty("buildScan")) {
+    buildScan {
+        termsOfServiceUrl = "https://gradle.com/terms-of-service"
+        termsOfServiceAgree = "yes"
+    }
+}
+
+static def determineVersion(String defaultVersion) {
+    def envVersion = System.getenv("VERSION")
+    return envVersion == null ? defaultVersion : envVersion
 }
 
 group = 'dev.mikchan.mcnp'
-version = '0.0.1'
+version = determineVersion('0.0.1')
 
 repositories {
     mavenCentral()
@@ -21,6 +34,12 @@ repositories {
 dependencies {
     compileOnly "org.spigotmc:spigot-api:1.20.2-R0.1-SNAPSHOT"
     implementation "org.jetbrains.kotlin:kotlin-stdlib:1.9.21"
+
+    implementation "org.bstats:bstats-bukkit:3.0.1"
+    implementation "org.bstats:bstats-base:3.0.1"
+
+    shadow "org.bstats:bstats-bukkit:3.0.1"
+    shadow "org.bstats:bstats-base:3.0.1"
 }
 
 def targetJavaVersion = 17
@@ -31,6 +50,8 @@ java {
             languageVersion.set(JavaLanguageVersion.of(targetJavaVersion))
         }
     }
+
+    withSourcesJar()
 }
 
 tasks.withType(JavaCompile).configureEach {
@@ -50,4 +71,12 @@ processResources {
 
 kotlin {
     jvmToolchain(17)
+}
+
+shadowJar {
+    archiveClassifier.set(null)
+    configurations = [project.configurations.shadow]
+    minimize()
+    enableRelocation = true
+    relocationPrefix = "dev.mikchan.mcnp.motd.shadow"
 }
