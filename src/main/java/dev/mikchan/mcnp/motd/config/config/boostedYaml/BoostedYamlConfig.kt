@@ -39,6 +39,14 @@ internal class BoostedYamlConfig(document: File, resource: InputStream) : IConfi
             config.set("random-images", value)
             config.save()
         }
+
+    override var mixMotd: Boolean
+        get() = config.getBoolean("mix-motd", false)
+        set(value) {
+            config.set("mix-motd", value)
+            config.save()
+        }
+
     override var motd: List<IMOTDConfig>
         get() = config.getMapList("motd", listOf()).filterNotNull().map { BoostedYamlProxyMOTDConfig(it) }
         set(value) {

@@ -5,6 +5,7 @@ interface IConfig {
 
     var enabled: Boolean
     var randomImages: Boolean
+    var mixMotd: Boolean
     var motd: List<IMOTDConfig>
     var personalizedMotd: List<IMOTDConfig>
 }

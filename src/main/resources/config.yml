@@ -3,10 +3,12 @@ config-version: 1
 
 enabled: false
 random-images: false
+mix-motd: false
+
 motd:
   - first-line: Minecraft
     second-line: Server
-    image: image.png
+    image: image
 
 personalized-motd:
   - first-line: Minecraft Server
