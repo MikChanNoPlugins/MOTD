@@ -1,31 +1,32 @@
 package dev.mikchan.mcnp.motd.events.listeners
 
 import dev.mikchan.mcnp.motd.MOTDPlugin
+import dev.mikchan.mcnp.motd.motd.manager.IMOTD
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.server.ServerListPingEvent
 import org.bukkit.util.CachedServerIcon
 
 internal class MOTDListener(private val plugin: MOTDPlugin) : Listener {
+    private fun getIcon(motd: IMOTD?): CachedServerIcon? {
+        if (motd?.image != null) return motd.image
+        if (plugin.config.randomImages) return plugin.imageManager.getRandom()
+        return null
+    }
+
     @EventHandler(ignoreCancelled = true)
     fun onServerListPingEvent(event: ServerListPingEvent) {
         if (!plugin.config.enabled) return
-        var icon: CachedServerIcon? = null
+        val motd = plugin.motdManager.getRandom()
 
-        plugin.motdManager.getRandom()?.apply {
-            if (firstLine != null || secondLine != null) {
-                val firstLine = firstLine?.let { plugin.formatter.format(it) } ?: ""
-                val secondLine = secondLine?.let { plugin.formatter.format(it) } ?: ""
-                event.motd = "${firstLine}\n${secondLine}"
-            }
+        motd?.apply {
+            if (firstLine == null && secondLine == null) return@apply
 
-            icon = image
+            val firstLine = firstLine?.let { plugin.formatter.format(it) } ?: ""
+            val secondLine = secondLine?.let { plugin.formatter.format(it) } ?: ""
+            event.motd = "${firstLine}\n${secondLine}"
         }
 
-        icon ?: if (plugin.config.randomImages) {
-            plugin.imageManager.getRandom()
-        } else {
-            null
-        }?.apply { event.setServerIcon(this) }
+        getIcon(motd)?.apply { event.setServerIcon(this) }
     }
 }

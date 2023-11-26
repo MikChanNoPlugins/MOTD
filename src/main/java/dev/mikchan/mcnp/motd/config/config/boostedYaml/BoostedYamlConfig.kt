@@ -50,4 +50,16 @@ internal class BoostedYamlConfig(document: File, resource: InputStream) : IConfi
                 ).filter { m -> m.value != null }
             })
         }
+
+    override var personalizedMotd: List<IMOTDConfig>
+        get() = config.getMapList("personalized-motd", listOf()).filterNotNull().map { BoostedYamlProxyMOTDConfig(it) }
+        set(value) {
+            config.set("personalized-motd", value.map {
+                mapOf(
+                    "first-line" to it.firstLine,
+                    "second-line" to it.secondLine,
+                    "image" to it.image,
+                ).filter { m -> m.value != null }
+            })
+        }
 }

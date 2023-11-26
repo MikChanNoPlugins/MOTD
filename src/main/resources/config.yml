@@ -7,3 +7,7 @@ motd:
   - first-line: Minecraft
     second-line: Server
     image: image.png
+
+personalized-motd:
+  - first-line: Minecraft Server
+    second-line: Hello, %player_name%!
