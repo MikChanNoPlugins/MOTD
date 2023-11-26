@@ -8,4 +8,5 @@ interface IImageManager {
 
     fun preload()
     fun reload()
+    fun unload()
 }

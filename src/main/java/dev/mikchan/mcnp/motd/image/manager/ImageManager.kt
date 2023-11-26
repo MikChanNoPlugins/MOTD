@@ -5,7 +5,7 @@ import org.bukkit.util.CachedServerIcon
 import java.io.File
 import kotlin.io.path.useDirectoryEntries
 
-internal class ImagePool(private val plugin: MOTDPlugin) : IImageManager {
+internal class ImageManager(private val plugin: MOTDPlugin) : IImageManager {
     private val iconFolder
         get() = run {
             val res = File(plugin.dataFolder, "icons")
@@ -44,5 +44,9 @@ internal class ImagePool(private val plugin: MOTDPlugin) : IImageManager {
 
     override fun reload() {
         preload()
+    }
+
+    override fun unload() {
+        cache = mapOf()
     }
 }

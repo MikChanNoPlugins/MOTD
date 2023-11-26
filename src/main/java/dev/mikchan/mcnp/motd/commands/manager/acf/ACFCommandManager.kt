@@ -8,6 +8,7 @@ import dev.mikchan.mcnp.motd.commands.manager.acf.commands.AdminCommand
 internal class ACFCommandManager(private val plugin: MOTDPlugin) : ICommandManager {
     private val manager by lazy { PaperCommandManager(plugin) }
     override fun registerAll() {
+        unregisterAll()
         manager.registerCommand(AdminCommand(plugin))
     }
 
