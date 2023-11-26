@@ -48,6 +48,7 @@ internal class AdminCommand(private val plugin: MOTDPlugin) : BaseCommand() {
     @Description("Reloads config")
     fun onReload(sender: CommandSender) {
         if (plugin.config.reload()) {
+            plugin.imagePool.reload()
             sender.sendMessage("${ChatColor.GREEN}Config is successfully reloaded!")
         } else {
             sender.sendMessage("${ChatColor.RED}Unable to reload config!")
