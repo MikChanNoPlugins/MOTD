@@ -1,0 +1,3 @@
+# MOTD
+
+Nothing here (yet)
