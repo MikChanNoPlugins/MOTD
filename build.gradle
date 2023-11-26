@@ -19,6 +19,12 @@ static def determineVersion(String defaultVersion) {
 group = 'dev.mikchan.mcnp'
 version = determineVersion('0.0.1')
 
+def localProperties = new Properties()
+def propertiesFile = rootProject.file("local.properties")
+if (propertiesFile.exists()) {
+    localProperties.load(new FileInputStream(propertiesFile))
+}
+
 repositories {
     mavenCentral()
     maven {
@@ -41,6 +47,10 @@ dependencies {
 
     shadow "org.bstats:bstats-bukkit:3.0.1"
     shadow "co.aikar:acf-paper:0.5.1-SNAPSHOT"
+}
+
+if (file("local.gradle").exists()) {
+    apply from: "local.gradle"
 }
 
 def targetJavaVersion = 17
