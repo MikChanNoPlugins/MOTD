@@ -18,10 +18,17 @@ internal class BoostedYamlConfig(document: File, resource: InputStream) : IConfi
         GeneralSettings.builder().setSerializer(SpigotSerializer.getInstance()).build(),
         LoaderSettings.builder().setAutoUpdate(true).build(),
         DumperSettings.DEFAULT,
-        UpdaterSettings.builder().setVersioning(BasicVersioning("configVersion")).build(),
+        UpdaterSettings.builder().setVersioning(BasicVersioning("config-version")).build(),
     )
 
     override fun reload(): Boolean {
         return config.reload()
     }
+
+    override var enabled: Boolean
+        get() = config.getBoolean("enabled", false)
+        set(value) {
+            config.set("enabled", value)
+            config.save()
+        }
 }
