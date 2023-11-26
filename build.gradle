@@ -29,17 +29,18 @@ repositories {
         name = "sonatype"
         url = "https://oss.sonatype.org/content/groups/public/"
     }
+    maven {
+        name = "aikar-repo"
+        url = "https://repo.aikar.co/content/groups/aikar/"
+    }
 }
 
 dependencies {
     compileOnly "org.spigotmc:spigot-api:1.20.2-R0.1-SNAPSHOT"
     implementation "org.jetbrains.kotlin:kotlin-stdlib:1.9.21"
 
-    implementation "org.bstats:bstats-bukkit:3.0.1"
-    implementation "org.bstats:bstats-base:3.0.1"
-
     shadow "org.bstats:bstats-bukkit:3.0.1"
-    shadow "org.bstats:bstats-base:3.0.1"
+    shadow "co.aikar:acf-paper:0.5.1-SNAPSHOT"
 }
 
 def targetJavaVersion = 17
@@ -76,7 +77,7 @@ kotlin {
 shadowJar {
     archiveClassifier.set(null)
     configurations = [project.configurations.shadow]
-    minimize()
     enableRelocation = true
     relocationPrefix = "dev.mikchan.mcnp.motd.shadow"
+    minimize()
 }
