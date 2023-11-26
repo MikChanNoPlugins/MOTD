@@ -17,13 +17,14 @@ internal class MOTDListener(private val plugin: MOTDPlugin) : Listener {
     @EventHandler(ignoreCancelled = true)
     fun onServerListPingEvent(event: ServerListPingEvent) {
         if (!plugin.config.enabled) return
-        val motd = plugin.motdManager.getRandom()
+        val player = plugin.usersManager.get(event.address)
+        val motd = plugin.motdManager.getRandom(player != null)
 
         motd?.apply {
             if (firstLine == null && secondLine == null) return@apply
 
-            val firstLine = firstLine?.let { plugin.formatter.format(it) } ?: ""
-            val secondLine = secondLine?.let { plugin.formatter.format(it) } ?: ""
+            val firstLine = firstLine?.let { plugin.formatter.format(it, player) } ?: ""
+            val secondLine = secondLine?.let { plugin.formatter.format(it, player) } ?: ""
             event.motd = "${firstLine}\n${secondLine}"
         }
 
