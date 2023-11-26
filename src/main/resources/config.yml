@@ -2,3 +2,8 @@
 config-version: 1
 
 enabled: false
+random-images: false
+motd:
+  - first-line: Minecraft
+    second-line: Server
+    image: image.png

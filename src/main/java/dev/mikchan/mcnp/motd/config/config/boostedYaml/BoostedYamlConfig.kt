@@ -8,6 +8,7 @@ import dev.dejvokep.boostedyaml.settings.loader.LoaderSettings
 import dev.dejvokep.boostedyaml.settings.updater.UpdaterSettings
 import dev.dejvokep.boostedyaml.spigot.SpigotSerializer
 import dev.mikchan.mcnp.motd.config.config.IConfig
+import dev.mikchan.mcnp.motd.config.config.IMOTDConfig
 import java.io.File
 import java.io.InputStream
 
@@ -30,5 +31,23 @@ internal class BoostedYamlConfig(document: File, resource: InputStream) : IConfi
         set(value) {
             config.set("enabled", value)
             config.save()
+        }
+
+    override var randomImages: Boolean
+        get() = config.getBoolean("random-images", false)
+        set(value) {
+            config.set("random-images", value)
+            config.save()
+        }
+    override var motd: List<IMOTDConfig>
+        get() = config.getMapList("motd", listOf()).filterNotNull().map { BoostedYamlProxyMOTDConfig(it) }
+        set(value) {
+            config.set("motd", value.map {
+                mapOf(
+                    "first-line" to it.firstLine,
+                    "second-line" to it.secondLine,
+                    "image" to it.image,
+                ).filter { m -> m.value != null }
+            })
         }
 }
