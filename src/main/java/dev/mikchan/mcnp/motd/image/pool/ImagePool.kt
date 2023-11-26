@@ -22,9 +22,7 @@ internal class ImagePool(private val plugin: MOTDPlugin) : IImagePool {
     }
 
     override fun getRandom(): CachedServerIcon? {
-        val cache = this.cache
-        if (cache.isEmpty()) return null
-        return cache.values.random()
+        return cache.values.ifEmpty { null }?.random()
     }
 
     override fun preload() {
